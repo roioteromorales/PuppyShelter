@@ -25,6 +25,20 @@ public class PuppyDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        initializeFloatingActionButton();
+
+        Puppy puppy = getPuppy();
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        collapsingToolbar.setTitle(puppy.getName());
+
+        ImageView backdrop = (ImageView) findViewById(R.id.backdrop);
+        Picasso.with(this)
+                .load(puppy.getImageUrl())
+                .placeholder(R.drawable.error_missing_photo)
+                .into(backdrop);
+    }
+
+    private void initializeFloatingActionButton() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,19 +47,11 @@ public class PuppyDetailActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
 
-
+    private Puppy getPuppy() {
         Intent intent = getIntent();
-
-        Puppy puppy = (Puppy) intent.getSerializableExtra(PUPPY_KEY);
-        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        collapsingToolbar.setTitle(puppy.getName());
-
-        ImageView backdrop = (ImageView) findViewById(R.id.backdrop);
-        Picasso.with(getApplicationContext())
-                .load(puppy.getImageUrl())
-                .placeholder(R.drawable.error_missing_photo)
-                .into(backdrop);
+        return (Puppy) intent.getSerializableExtra(PUPPY_KEY);
     }
 
     public static void open(Context context, Puppy puppy) {
