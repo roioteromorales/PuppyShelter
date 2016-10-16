@@ -33,7 +33,9 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        mRecyclerView.setAdapter( new CardsAdapter(getPuppies()));
+        CardsAdapter adapter = new CardsAdapter(getPuppies());
+        adapter.setHasStableIds(true);
+        mRecyclerView.setAdapter(adapter);
     }
 
     private void initializeDagger() {
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         app.getMainComponent().inject(this);
     }
     private List<Puppy> getPuppies() {
-        return puppiesManager.getAllPuppies();
+        return puppiesManager.getAllPuppiesUrls();
     }
 
 

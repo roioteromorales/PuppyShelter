@@ -20,4 +20,9 @@ public class PuppiesManagerImpl implements PuppiesManager {
     public List<Puppy> getAllPuppies() {
         return puppiesRepository.getAllPuppies();
     }
+
+    @Override
+    public List<Puppy> getAllPuppiesUrls() {
+        return puppiesRepository.getAllPuppiesUrls();
+    }
 }

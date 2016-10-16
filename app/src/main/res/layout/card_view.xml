@@ -17,7 +17,7 @@ android:layout_marginBottom="16dp">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="description"
-        android:src="@drawable/silhouette_puppy"
+        android:src="@drawable/error_missing_photo"
         android:scaleType="centerCrop" />
     <TextView
         android:id="@+id/title"

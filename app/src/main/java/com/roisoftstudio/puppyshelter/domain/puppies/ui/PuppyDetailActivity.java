@@ -15,8 +15,6 @@ import com.roisoftstudio.puppyshelter.R;
 import com.roisoftstudio.puppyshelter.domain.puppies.model.Puppy;
 import com.squareup.picasso.Picasso;
 
-import java.io.Serializable;
-
 public class PuppyDetailActivity extends AppCompatActivity {
     private static final String PUPPY_KEY = "puppy_key";
 
@@ -44,7 +42,10 @@ public class PuppyDetailActivity extends AppCompatActivity {
         collapsingToolbar.setTitle(puppy.getName());
 
         ImageView backdrop = (ImageView) findViewById(R.id.backdrop);
-        Picasso.with(getApplicationContext()).load(puppy.getImageId()).into(backdrop);
+        Picasso.with(getApplicationContext())
+                .load(puppy.getImageUrl())
+                .placeholder(R.drawable.error_missing_photo)
+                .into(backdrop);
     }
 
     public static void open(Context context, Puppy puppy) {

@@ -39,6 +39,9 @@ public class PuppyCardViewHolder extends RecyclerView.ViewHolder {
     public void render(Puppy puppy) {
         this.puppy = puppy;
         title.setText(puppy.getName());
-        Picasso.with(view.getContext()).load(puppy.getImageId()).into(puppyPhoto);
+        Picasso.with(view.getContext())
+                .load(puppy.getImageUrl())
+                .placeholder(R.drawable.error_missing_photo)
+                .into(puppyPhoto);
     }
 }

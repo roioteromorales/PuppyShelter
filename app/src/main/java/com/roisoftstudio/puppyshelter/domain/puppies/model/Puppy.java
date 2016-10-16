@@ -6,11 +6,17 @@ import java.io.Serializable;
 public class Puppy implements Serializable{
     private int imageId;
     private String name;
+    private String imageUrl;
     private String description;
 
     public Puppy(String name, int imageResource) {
         this.name = name;
         this.imageId = imageResource;
+    }
+
+    public Puppy(String name, String imageUrl) {
+        this.name = name;
+        this.imageUrl = imageUrl;
     }
 
     public int getImageId() {
@@ -27,5 +33,13 @@ public class Puppy implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
