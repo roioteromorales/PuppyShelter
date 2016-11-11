@@ -17,7 +17,7 @@
 package com.roisoftstudio.puppyshelter.domain.puppies.dependencies;
 
 import com.roisoftstudio.puppyshelter.domain.puppies.repositories.AnimalsRepository;
-import com.roisoftstudio.puppyshelter.domain.puppies.repositories.InMemoryAnimalsRepository;
+import com.roisoftstudio.puppyshelter.domain.puppies.retrofit.AnimalService;
 import com.roisoftstudio.puppyshelter.domain.puppies.services.AnimalsManager;
 import com.roisoftstudio.puppyshelter.domain.puppies.services.AnimalsManagerImpl;
 
@@ -25,15 +25,33 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class MainModule {
 
     @Provides
     @Singleton
-    public AnimalsRepository providePuppiesRepository() {
-        return new InMemoryAnimalsRepository();
+    public Retrofit provideRetrofit() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://roisoftstudio.com:18080/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        return retrofit;
     }
+
+    @Provides
+    @Singleton
+    public AnimalService provideAnimalService(Retrofit retrofit) {
+        return retrofit.create(AnimalService.class);
+    }
+
+//    @Provides
+//    @Singleton
+//    public AnimalsRepository providePuppiesRepository(AnimalService animalService) {
+//        return new ServerAnimalsRepository(animalService);
+//    }
 
     @Provides
     @Singleton

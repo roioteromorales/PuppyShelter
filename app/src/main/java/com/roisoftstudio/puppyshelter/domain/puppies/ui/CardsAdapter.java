@@ -38,4 +38,9 @@ public class CardsAdapter extends RecyclerView.Adapter<AnimalCardViewHolder> {
     public int getItemCount() {
         return puppies.size();
     }
+
+    public void setPuppies(List<Animal> puppies){
+        this.puppies = puppies;
+    }
+
 }
