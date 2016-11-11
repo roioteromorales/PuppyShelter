@@ -6,6 +6,4 @@ import java.util.List;
 
 public interface PuppiesRepository {
     List<Puppy> getAllPuppies();
-
-    List<Puppy> getAllPuppiesUrls();
 }

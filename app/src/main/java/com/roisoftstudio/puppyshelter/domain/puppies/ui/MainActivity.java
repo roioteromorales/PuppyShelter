@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         app.getMainComponent().inject(this);
     }
     private List<Puppy> getPuppies() {
-        return puppiesManager.getAllPuppiesUrls();
+        return puppiesManager.getAllPuppies();
     }
 
 
