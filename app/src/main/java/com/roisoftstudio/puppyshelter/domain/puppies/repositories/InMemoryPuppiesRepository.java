@@ -8,7 +8,7 @@ import java.util.List;
 
 import static com.roisoftstudio.puppyshelter.domain.puppies.model.PuppyBuilder.aPuppy;
 
-public class PuppiesRepositoryImpl implements PuppiesRepository {
+public class InMemoryPuppiesRepository implements PuppiesRepository {
 
     private String hipsterPuppy = "https://s-media-cache-ak0.pinimg.com/736x/6d/57/fc/6d57fc88efdf5286ef844aca8578712e.jpg";
     private String cutePuppy = "http://ghk.h-cdn.co/assets/16/09/980x490/landscape-1457107485-gettyimages-512366437.jpg";

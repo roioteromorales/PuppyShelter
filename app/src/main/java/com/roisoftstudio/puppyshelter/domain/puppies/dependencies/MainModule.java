@@ -17,7 +17,7 @@
 package com.roisoftstudio.puppyshelter.domain.puppies.dependencies;
 
 import com.roisoftstudio.puppyshelter.domain.puppies.repositories.PuppiesRepository;
-import com.roisoftstudio.puppyshelter.domain.puppies.repositories.PuppiesRepositoryImpl;
+import com.roisoftstudio.puppyshelter.domain.puppies.repositories.InMemoryPuppiesRepository;
 import com.roisoftstudio.puppyshelter.domain.puppies.services.PuppiesManager;
 import com.roisoftstudio.puppyshelter.domain.puppies.services.PuppiesManagerImpl;
 
@@ -32,7 +32,7 @@ public class MainModule {
     @Provides
     @Singleton
     public PuppiesRepository providePuppiesRepository() {
-        return new PuppiesRepositoryImpl();
+        return new InMemoryPuppiesRepository();
     }
 
     @Provides
