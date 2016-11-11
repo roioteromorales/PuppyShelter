@@ -4,27 +4,14 @@ package com.roisoftstudio.puppyshelter.domain.puppies.model;
 import java.io.Serializable;
 
 public class Puppy implements Serializable{
-    private int imageId;
     private String name;
     private String imageUrl;
     private String description;
 
-    public Puppy(String name, int imageResource) {
-        this.name = name;
-        this.imageId = imageResource;
-    }
-
-    public Puppy(String name, String imageUrl) {
+    Puppy(String name, String imageUrl, String description) {
         this.name = name;
         this.imageUrl = imageUrl;
-    }
-
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+        this.description = description;
     }
 
     public String getName() {

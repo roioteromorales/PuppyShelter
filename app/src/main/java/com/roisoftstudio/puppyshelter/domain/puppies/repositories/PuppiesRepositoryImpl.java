@@ -1,10 +1,12 @@
 package com.roisoftstudio.puppyshelter.domain.puppies.repositories;
 
-import com.roisoftstudio.puppyshelter.R;
 import com.roisoftstudio.puppyshelter.domain.puppies.model.Puppy;
+import com.roisoftstudio.puppyshelter.domain.puppies.model.PuppyBuilder;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static com.roisoftstudio.puppyshelter.domain.puppies.model.PuppyBuilder.aPuppy;
 
 public class PuppiesRepositoryImpl implements PuppiesRepository {
 
@@ -19,12 +21,12 @@ public class PuppiesRepositoryImpl implements PuppiesRepository {
     @Override
     public List<Puppy> getAllPuppies() {
         return Arrays.asList(
-                new Puppy("Hipster Puppy", hipsterPuppy),
-                new Puppy("Cute Puppy", cutePuppy),
-                new Puppy("Gangsta Puppy", gangstaPuppy),
-                new Puppy("Smart Puppy", smartPuppy),
-                new Puppy("Water Puppy", waterPuppy),
-                new Puppy("Swimmer Puppy", swimmerPuppy)
+                aPuppy().withName("Hipster Puppy").withImageUrl(hipsterPuppy).withDescription("").createPuppy(),
+                aPuppy().withName("Cute Puppy").withImageUrl(cutePuppy).withDescription("").createPuppy(),
+                aPuppy().withName("Gangsta Puppy").withImageUrl(gangstaPuppy).withDescription("").createPuppy(),
+                aPuppy().withName("Smart Puppy").withImageUrl(smartPuppy).withDescription("").createPuppy(),
+                aPuppy().withName("Water Puppy").withImageUrl(waterPuppy).withDescription("").createPuppy(),
+                aPuppy().withName("Swimmer Puppy").withImageUrl(swimmerPuppy).withDescription("").createPuppy()
         );
     }
 
