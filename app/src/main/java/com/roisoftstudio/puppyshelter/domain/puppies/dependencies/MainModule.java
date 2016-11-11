@@ -16,10 +16,7 @@
 
 package com.roisoftstudio.puppyshelter.domain.puppies.dependencies;
 
-import com.roisoftstudio.puppyshelter.domain.puppies.repositories.AnimalsRepository;
 import com.roisoftstudio.puppyshelter.domain.puppies.retrofit.AnimalService;
-import com.roisoftstudio.puppyshelter.domain.puppies.services.AnimalsManager;
-import com.roisoftstudio.puppyshelter.domain.puppies.services.AnimalsManagerImpl;
 
 import javax.inject.Singleton;
 
@@ -47,15 +44,5 @@ public class MainModule {
         return retrofit.create(AnimalService.class);
     }
 
-//    @Provides
-//    @Singleton
-//    public AnimalsRepository providePuppiesRepository(AnimalService animalService) {
-//        return new ServerAnimalsRepository(animalService);
-//    }
 
-    @Provides
-    @Singleton
-    public AnimalsManager providePuppiesManager(AnimalsRepository animalsRepository) {
-        return new AnimalsManagerImpl(animalsRepository);
-    }
 }
