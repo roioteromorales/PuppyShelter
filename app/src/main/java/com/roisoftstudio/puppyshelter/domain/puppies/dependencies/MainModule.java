@@ -16,10 +16,10 @@
 
 package com.roisoftstudio.puppyshelter.domain.puppies.dependencies;
 
-import com.roisoftstudio.puppyshelter.domain.puppies.repositories.PuppiesRepository;
-import com.roisoftstudio.puppyshelter.domain.puppies.repositories.InMemoryPuppiesRepository;
-import com.roisoftstudio.puppyshelter.domain.puppies.services.PuppiesManager;
-import com.roisoftstudio.puppyshelter.domain.puppies.services.PuppiesManagerImpl;
+import com.roisoftstudio.puppyshelter.domain.puppies.repositories.AnimalsRepository;
+import com.roisoftstudio.puppyshelter.domain.puppies.repositories.InMemoryAnimalsRepository;
+import com.roisoftstudio.puppyshelter.domain.puppies.services.AnimalsManager;
+import com.roisoftstudio.puppyshelter.domain.puppies.services.AnimalsManagerImpl;
 
 import javax.inject.Singleton;
 
@@ -31,13 +31,13 @@ public class MainModule {
 
     @Provides
     @Singleton
-    public PuppiesRepository providePuppiesRepository() {
-        return new InMemoryPuppiesRepository();
+    public AnimalsRepository providePuppiesRepository() {
+        return new InMemoryAnimalsRepository();
     }
 
     @Provides
     @Singleton
-    public PuppiesManager providePuppiesManager(PuppiesRepository puppiesRepository) {
-        return new PuppiesManagerImpl(puppiesRepository);
+    public AnimalsManager providePuppiesManager(AnimalsRepository animalsRepository) {
+        return new AnimalsManagerImpl(animalsRepository);
     }
 }

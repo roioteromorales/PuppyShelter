@@ -2,7 +2,7 @@
     <string name="app_name">PuppyShelter</string>
     <string name="title_activity_puppy_detail">PuppyDetailActivity</string>
     <string name="large_text">
-       This puppy is amazing
+       This animal is amazing
     </string>
     <string name="action_settings">Settings</string>
 </resources>

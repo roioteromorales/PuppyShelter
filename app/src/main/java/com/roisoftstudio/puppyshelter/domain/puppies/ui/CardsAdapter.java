@@ -7,31 +7,31 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.roisoftstudio.puppyshelter.R;
-import com.roisoftstudio.puppyshelter.domain.puppies.model.Puppy;
+import com.roisoftstudio.puppyshelter.domain.puppies.model.Animal;
 
 import java.util.List;
 
-public class CardsAdapter extends RecyclerView.Adapter<PuppyCardViewHolder> {
-    private List<Puppy> puppies;
+public class CardsAdapter extends RecyclerView.Adapter<AnimalCardViewHolder> {
+    private List<Animal> puppies;
     private Context context;
 
-    public CardsAdapter(List<Puppy> puppies) {
+    public CardsAdapter(List<Animal> puppies) {
         this.puppies = puppies;
     }
 
     @Override
-    public PuppyCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AnimalCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
         CardView cardView = (CardView) LayoutInflater.from(context)
                 .inflate(R.layout.card_view, parent, false);
 
-        return new PuppyCardViewHolder(cardView);
+        return new AnimalCardViewHolder(cardView);
     }
 
     @Override
-    public void onBindViewHolder(PuppyCardViewHolder holder, int position) {
-        Puppy puppy = puppies.get(position);
-        holder.render(puppy);
+    public void onBindViewHolder(AnimalCardViewHolder holder, int position) {
+        Animal animal = puppies.get(position);
+        holder.render(animal);
     }
 
     @Override

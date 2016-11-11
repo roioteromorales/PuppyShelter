@@ -3,12 +3,15 @@ package com.roisoftstudio.puppyshelter.domain.puppies.model;
 
 import java.io.Serializable;
 
-public class Puppy implements Serializable{
+public class Animal implements Serializable{
     private String name;
     private String imageUrl;
     private String description;
 
-    Puppy(String name, String imageUrl, String description) {
+    public Animal() {
+    }
+
+    public Animal(String name, String imageUrl, String description) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.description = description;

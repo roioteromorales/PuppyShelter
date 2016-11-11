@@ -8,16 +8,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.roisoftstudio.puppyshelter.R;
-import com.roisoftstudio.puppyshelter.domain.puppies.model.Puppy;
+import com.roisoftstudio.puppyshelter.domain.puppies.model.Animal;
 import com.squareup.picasso.Picasso;
 
-public class PuppyCardViewHolder extends RecyclerView.ViewHolder {
+public class AnimalCardViewHolder extends RecyclerView.ViewHolder {
     private TextView title;
     private ImageView puppyPhoto;
     private CardView view;
-    private Puppy puppy;
+    private Animal animal;
 
-    public PuppyCardViewHolder(CardView view) {
+    public AnimalCardViewHolder(CardView view) {
         super(view);
         this.view = view;
         title = (TextView) view.findViewById(R.id.title);
@@ -31,16 +31,16 @@ public class PuppyCardViewHolder extends RecyclerView.ViewHolder {
             @Override public void onClick(View v) {
                 Toast.makeText(view.getContext(), "selected " + title.getText(), Toast.LENGTH_SHORT).show();
 
-                PuppyDetailActivity.open(view.getContext(), puppy);
+                AnimalDetailActivity.open(view.getContext(), animal);
             }
         });
     }
 
-    public void render(Puppy puppy) {
-        this.puppy = puppy;
-        title.setText(puppy.getName());
+    public void render(Animal animal) {
+        this.animal = animal;
+        title.setText(animal.getName());
         Picasso.with(view.getContext())
-                .load(puppy.getImageUrl())
+                .load(animal.getImageUrl())
                 .placeholder(R.drawable.error_missing_photo)
                 .into(puppyPhoto);
     }

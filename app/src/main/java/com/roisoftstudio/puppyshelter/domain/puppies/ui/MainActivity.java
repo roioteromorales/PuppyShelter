@@ -7,8 +7,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.roisoftstudio.puppyshelter.R;
 import com.roisoftstudio.puppyshelter.domain.puppies.PuppyShelterApplication;
-import com.roisoftstudio.puppyshelter.domain.puppies.model.Puppy;
-import com.roisoftstudio.puppyshelter.domain.puppies.services.PuppiesManager;
+import com.roisoftstudio.puppyshelter.domain.puppies.model.Animal;
+import com.roisoftstudio.puppyshelter.domain.puppies.services.AnimalsManager;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
 
     @Inject
-    PuppiesManager puppiesManager;
+    AnimalsManager animalsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
         PuppyShelterApplication app = (PuppyShelterApplication) getApplication();
         app.getMainComponent().inject(this);
     }
-    private List<Puppy> getPuppies() {
-        return puppiesManager.getAllPuppies();
+    private List<Animal> getPuppies() {
+        return animalsManager.getAllPuppies();
     }
 
 

@@ -12,10 +12,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.roisoftstudio.puppyshelter.R;
-import com.roisoftstudio.puppyshelter.domain.puppies.model.Puppy;
+import com.roisoftstudio.puppyshelter.domain.puppies.model.Animal;
 import com.squareup.picasso.Picasso;
 
-public class PuppyDetailActivity extends AppCompatActivity {
+public class AnimalDetailActivity extends AppCompatActivity {
     private static final String PUPPY_KEY = "puppy_key";
 
     @Override
@@ -27,13 +27,13 @@ public class PuppyDetailActivity extends AppCompatActivity {
 
         initializeFloatingActionButton();
 
-        Puppy puppy = getPuppy();
+        Animal animal = getPuppy();
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        collapsingToolbar.setTitle(puppy.getName());
+        collapsingToolbar.setTitle(animal.getName());
 
         ImageView backdrop = (ImageView) findViewById(R.id.backdrop);
         Picasso.with(this)
-                .load(puppy.getImageUrl())
+                .load(animal.getImageUrl())
                 .placeholder(R.drawable.error_missing_photo)
                 .into(backdrop);
     }
@@ -49,14 +49,14 @@ public class PuppyDetailActivity extends AppCompatActivity {
         });
     }
 
-    private Puppy getPuppy() {
+    private Animal getPuppy() {
         Intent intent = getIntent();
-        return (Puppy) intent.getSerializableExtra(PUPPY_KEY);
+        return (Animal) intent.getSerializableExtra(PUPPY_KEY);
     }
 
-    public static void open(Context context, Puppy puppy) {
-        Intent intent = new Intent(context, PuppyDetailActivity.class);
-        intent.putExtra(PUPPY_KEY, puppy);
+    public static void open(Context context, Animal animal) {
+        Intent intent = new Intent(context, AnimalDetailActivity.class);
+        intent.putExtra(PUPPY_KEY, animal);
         context.startActivity(intent);
     }
 }
