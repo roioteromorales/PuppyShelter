@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.roisoftstudio.puppyshelter.R;
 import com.roisoftstudio.puppyshelter.domain.puppies.model.Animal;
@@ -30,6 +31,9 @@ public class AnimalDetailActivity extends AppCompatActivity {
         Animal animal = getPuppy();
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         collapsingToolbar.setTitle(animal.getName());
+
+        TextView description = (TextView) findViewById(R.id.animal_detail_description);
+        description.setText(animal.getDescription());
 
         ImageView backdrop = (ImageView) findViewById(R.id.backdrop);
         Picasso.with(this)

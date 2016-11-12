@@ -59,7 +59,10 @@ public class AnimalAddActivity extends AppCompatActivity {
 
                 String name = nameText.getText().toString();
                 String description = descriptionText.getText().toString();
-                Animal newAnimal = anAnimal().withName(name).withDescription(description).createAnimal();
+                Animal newAnimal = anAnimal()
+                        .withName(name)
+                        .withDescription(description)
+                        .withImageUrl("http://siliconcali.com/wp-content/uploads/2012/02/android-puppy-dog_sc-wave.png").createAnimal();
                 animalService.save(newAnimal).enqueue(new AddAnimalCallback(view));
                 hideKeyboard(view);
             }

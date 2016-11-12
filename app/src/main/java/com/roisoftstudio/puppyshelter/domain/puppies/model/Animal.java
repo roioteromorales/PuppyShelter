@@ -32,4 +32,8 @@ public class Animal implements Serializable{
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public String getDescription() {
+        return description;
+    }
 }
