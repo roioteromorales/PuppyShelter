@@ -1,8 +1,9 @@
 package com.roisoftstudio.puppyshelter.domain.puppies.ui;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,14 +18,18 @@ import android.widget.ImageView;
 
 import com.roisoftstudio.puppyshelter.R;
 import com.roisoftstudio.puppyshelter.domain.puppies.PuppyShelterApplication;
+import com.roisoftstudio.puppyshelter.domain.puppies.images.UploadCallback;
+import com.roisoftstudio.puppyshelter.domain.puppies.images.cloudinary.CloudinaryService;
+import com.roisoftstudio.puppyshelter.domain.puppies.images.cloudinary.transformer.ImageTransformer;
 import com.roisoftstudio.puppyshelter.domain.puppies.model.Animal;
 import com.roisoftstudio.puppyshelter.domain.puppies.network.AnimalService;
-import com.roisoftstudio.puppyshelter.domain.puppies.network.cloudinary.CloudinaryService;
-import com.roisoftstudio.puppyshelter.domain.puppies.network.cloudinary.CloudinaryServiceImpl;
 import com.roisoftstudio.puppyshelter.domain.puppies.network.Responses.HttpResponse;
 import com.squareup.picasso.Picasso;
 
-import java.util.Random;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import javax.inject.Inject;
 
@@ -32,17 +37,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Intent.ACTION_PICK;
+import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 import static com.roisoftstudio.puppyshelter.domain.puppies.model.AnimalBuilder.anAnimal;
 
 public class AnimalAddActivity extends AppCompatActivity {
     private static final String TAG = "AnimalAddActivity";
+    private static final int RESULT_LOAD_IMAGE = 999;
 
     @Inject
     AnimalService animalService;
     @Inject
     CloudinaryService cloudinaryServiceImpl;
+    @Inject
+    ImageTransformer imageTransformer;
 
-    private String imageUrl = "";
+    private String uploadedImageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +74,11 @@ public class AnimalAddActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name = ((EditText) findViewById(R.id.input_name)).getText().toString();
                 String description = ((EditText) findViewById(R.id.input_description)).getText().toString();
-                ImageView backdrop = (ImageView) findViewById(R.id.animal_add_backdrop);
 
                 Animal newAnimal = anAnimal()
                         .withName(name)
                         .withDescription(description)
-                        .withImageUrl(imageUrl).createAnimal();
+                        .withImageUrl(uploadedImageUrl).createAnimal();
                 animalService.save(newAnimal).enqueue(new AddAnimalCallback(view));
                 hideKeyboard(view);
             }
@@ -91,19 +100,34 @@ public class AnimalAddActivity extends AppCompatActivity {
         addPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImageView backdrop = (ImageView) findViewById(R.id.animal_add_backdrop);
-                imageUrl = getImageUrl();
-                Picasso.with(AnimalAddActivity.this)
-                        .load(imageUrl)
-                        .placeholder(R.drawable.error_missing_photo)
-                        .into(backdrop);
-            }
-
-            @NonNull
-            private String getImageUrl() {
-                return "https://unsplash.it/640/480?image=" + new Random().nextInt(1000);
+                Intent intent = new Intent(ACTION_PICK, EXTERNAL_CONTENT_URI);
+                intent.setType("image/*");
+                startActivityForResult(intent, RESULT_LOAD_IMAGE);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+
+            try {
+                InputStream imageInputStream = this.getContentResolver().openInputStream(data.getData());
+                cloudinaryServiceImpl.upload(imageInputStream, new UploadCallback() {
+                    @Override
+                    public void onResponse(String url) {
+                        uploadedImageUrl = url;
+                        Picasso.with(AnimalAddActivity.this)
+                                .load(uploadedImageUrl)
+                                .placeholder(R.drawable.error_missing_photo)
+                                .into((ImageView) findViewById(R.id.animal_add_backdrop));
+                    }
+                });
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private static class AddAnimalCallback implements Callback<HttpResponse> {

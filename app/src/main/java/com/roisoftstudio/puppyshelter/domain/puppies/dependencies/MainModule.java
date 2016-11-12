@@ -16,10 +16,15 @@
 
 package com.roisoftstudio.puppyshelter.domain.puppies.dependencies;
 
+import android.content.Context;
+
+import com.roisoftstudio.puppyshelter.domain.puppies.images.cloudinary.CloudinaryConfigImpl;
+import com.roisoftstudio.puppyshelter.domain.puppies.images.cloudinary.CloudinaryServiceImpl;
+import com.roisoftstudio.puppyshelter.domain.puppies.images.cloudinary.transformer.ImageTransformer;
+import com.roisoftstudio.puppyshelter.domain.puppies.images.cloudinary.transformer.PathToImageTransformer;
 import com.roisoftstudio.puppyshelter.domain.puppies.network.AnimalService;
-import com.roisoftstudio.puppyshelter.domain.puppies.network.cloudinary.CloudinaryConfig;
-import com.roisoftstudio.puppyshelter.domain.puppies.network.cloudinary.CloudinaryService;
-import com.roisoftstudio.puppyshelter.domain.puppies.network.cloudinary.CloudinaryServiceImpl;
+import com.roisoftstudio.puppyshelter.domain.puppies.images.cloudinary.CloudinaryConfig;
+import com.roisoftstudio.puppyshelter.domain.puppies.images.cloudinary.CloudinaryService;
 
 import javax.inject.Singleton;
 
@@ -49,13 +54,19 @@ public class MainModule {
 
     @Provides
     @Singleton
-    public CloudinaryConfig provideCloudinaryConfig(Retrofit retrofit) {
-        return retrofit.create(CloudinaryConfig.class);
+    public CloudinaryConfig provideCloudinaryConfig() {
+        return new CloudinaryConfigImpl();
     }
 
     @Provides
     @Singleton
-    public CloudinaryService provideCloudinaryService(Retrofit retrofit) {
-        return retrofit.create(CloudinaryService.class);
+    public CloudinaryService provideCloudinaryService(CloudinaryConfig cloudinaryConfig) {
+        return new CloudinaryServiceImpl(cloudinaryConfig);
+    }
+
+    @Provides
+    @Singleton
+    public ImageTransformer provideImageTransformer() {
+        return new PathToImageTransformer();
     }
 }

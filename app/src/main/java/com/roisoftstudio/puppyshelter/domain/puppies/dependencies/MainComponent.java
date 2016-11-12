@@ -16,7 +16,6 @@
 
 package com.roisoftstudio.puppyshelter.domain.puppies.dependencies;
 
-
 import com.roisoftstudio.puppyshelter.domain.puppies.ui.AnimalAddActivity;
 import com.roisoftstudio.puppyshelter.domain.puppies.ui.AnimalListActivity;
 
@@ -28,6 +27,4 @@ import dagger.Component;
 
   void inject(AnimalListActivity activity);
   void inject(AnimalAddActivity activity);
-
-//  void inject(PuppiesDetailActivity activity);
 }

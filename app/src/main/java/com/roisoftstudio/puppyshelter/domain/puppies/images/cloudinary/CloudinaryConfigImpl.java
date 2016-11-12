@@ -1,4 +1,4 @@
-package com.roisoftstudio.puppyshelter.domain.puppies.network.cloudinary;
+package com.roisoftstudio.puppyshelter.domain.puppies.images.cloudinary;
 
 import com.cloudinary.Cloudinary;
 

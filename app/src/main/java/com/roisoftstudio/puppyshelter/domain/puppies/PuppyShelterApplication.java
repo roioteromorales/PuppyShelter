@@ -6,6 +6,7 @@ import android.support.annotation.VisibleForTesting;
 import com.roisoftstudio.puppyshelter.domain.puppies.dependencies.DaggerMainComponent;
 import com.roisoftstudio.puppyshelter.domain.puppies.dependencies.MainComponent;
 
+
 public class PuppyShelterApplication extends Application {
 
     private MainComponent mainComponent;
