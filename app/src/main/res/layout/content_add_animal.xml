@@ -27,6 +27,15 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:hint="Description" />
+
+        <Button
+            android:text="Save"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_save" />
     </LinearLayout>
+
+
 
 </android.support.v4.widget.NestedScrollView>

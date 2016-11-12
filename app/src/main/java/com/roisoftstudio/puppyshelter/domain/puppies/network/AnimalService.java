@@ -1,7 +1,7 @@
-package com.roisoftstudio.puppyshelter.domain.puppies.retrofit;
+package com.roisoftstudio.puppyshelter.domain.puppies.network;
 
 import com.roisoftstudio.puppyshelter.domain.puppies.model.Animal;
-import com.roisoftstudio.puppyshelter.domain.puppies.retrofit.Responses.HttpResponse;
+import com.roisoftstudio.puppyshelter.domain.puppies.network.Responses.HttpResponse;
 
 import java.util.List;
 

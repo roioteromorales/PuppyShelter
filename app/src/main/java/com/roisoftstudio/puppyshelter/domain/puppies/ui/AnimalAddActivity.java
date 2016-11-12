@@ -11,13 +11,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.roisoftstudio.puppyshelter.R;
 import com.roisoftstudio.puppyshelter.domain.puppies.PuppyShelterApplication;
 import com.roisoftstudio.puppyshelter.domain.puppies.model.Animal;
-import com.roisoftstudio.puppyshelter.domain.puppies.retrofit.AnimalService;
-import com.roisoftstudio.puppyshelter.domain.puppies.retrofit.Responses.HttpResponse;
+import com.roisoftstudio.puppyshelter.domain.puppies.network.AnimalService;
+import com.roisoftstudio.puppyshelter.domain.puppies.network.cloudinary.CloudinaryService;
+import com.roisoftstudio.puppyshelter.domain.puppies.network.cloudinary.CloudinaryServiceImpl;
+import com.roisoftstudio.puppyshelter.domain.puppies.network.Responses.HttpResponse;
+import com.squareup.picasso.Picasso;
 
 import java.util.Random;
 
@@ -31,8 +36,13 @@ import static com.roisoftstudio.puppyshelter.domain.puppies.model.AnimalBuilder.
 
 public class AnimalAddActivity extends AppCompatActivity {
     private static final String TAG = "AnimalAddActivity";
+
     @Inject
     AnimalService animalService;
+    @Inject
+    CloudinaryService cloudinaryServiceImpl;
+
+    private String imageUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +53,32 @@ public class AnimalAddActivity extends AppCompatActivity {
         initializeDagger();
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         collapsingToolbar.setTitle("New Animal");
+        initializeAddPhotoButton();
+        initializeSaveButton();
+    }
 
-        initializeAddButton();
+    private void initializeSaveButton() {
+        Button buttonSave = (Button) findViewById(R.id.button_save);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name = ((EditText) findViewById(R.id.input_name)).getText().toString();
+                String description = ((EditText) findViewById(R.id.input_description)).getText().toString();
+                ImageView backdrop = (ImageView) findViewById(R.id.animal_add_backdrop);
+
+                Animal newAnimal = anAnimal()
+                        .withName(name)
+                        .withDescription(description)
+                        .withImageUrl(imageUrl).createAnimal();
+                animalService.save(newAnimal).enqueue(new AddAnimalCallback(view));
+                hideKeyboard(view);
+            }
+
+            private void hideKeyboard(View view) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        });
     }
 
     private void initializeDagger() {
@@ -52,32 +86,22 @@ public class AnimalAddActivity extends AppCompatActivity {
         app.getMainComponent().inject(this);
     }
 
-    private void initializeAddButton() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+    private void initializeAddPhotoButton() {
+        FloatingActionButton addPhotoButton = (FloatingActionButton) findViewById(R.id.add_photo_button);
+        addPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText nameText = (EditText) findViewById(R.id.input_name);
-                EditText descriptionText = (EditText) findViewById(R.id.input_description);
-
-                String name = nameText.getText().toString();
-                String description = descriptionText.getText().toString();
-                Animal newAnimal = anAnimal()
-                        .withName(name)
-                        .withDescription(description)
-                        .withImageUrl(getRandomImageUrl()).createAnimal();
-                animalService.save(newAnimal).enqueue(new AddAnimalCallback(view));
-                hideKeyboard(view);
+                ImageView backdrop = (ImageView) findViewById(R.id.animal_add_backdrop);
+                imageUrl = getImageUrl();
+                Picasso.with(AnimalAddActivity.this)
+                        .load(imageUrl)
+                        .placeholder(R.drawable.error_missing_photo)
+                        .into(backdrop);
             }
 
             @NonNull
-            private String getRandomImageUrl() {
+            private String getImageUrl() {
                 return "https://unsplash.it/640/480?image=" + new Random().nextInt(1000);
-            }
-
-            private void hideKeyboard(View view) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         });
     }

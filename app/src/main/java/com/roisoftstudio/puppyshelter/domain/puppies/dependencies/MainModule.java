@@ -16,7 +16,10 @@
 
 package com.roisoftstudio.puppyshelter.domain.puppies.dependencies;
 
-import com.roisoftstudio.puppyshelter.domain.puppies.retrofit.AnimalService;
+import com.roisoftstudio.puppyshelter.domain.puppies.network.AnimalService;
+import com.roisoftstudio.puppyshelter.domain.puppies.network.cloudinary.CloudinaryConfig;
+import com.roisoftstudio.puppyshelter.domain.puppies.network.cloudinary.CloudinaryService;
+import com.roisoftstudio.puppyshelter.domain.puppies.network.cloudinary.CloudinaryServiceImpl;
 
 import javax.inject.Singleton;
 
@@ -44,5 +47,15 @@ public class MainModule {
         return retrofit.create(AnimalService.class);
     }
 
+    @Provides
+    @Singleton
+    public CloudinaryConfig provideCloudinaryConfig(Retrofit retrofit) {
+        return retrofit.create(CloudinaryConfig.class);
+    }
 
+    @Provides
+    @Singleton
+    public CloudinaryService provideCloudinaryService(Retrofit retrofit) {
+        return retrofit.create(CloudinaryService.class);
+    }
 }

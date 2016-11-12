@@ -35,7 +35,7 @@ public class AnimalDetailActivity extends AppCompatActivity {
         TextView description = (TextView) findViewById(R.id.animal_detail_description);
         description.setText(animal.getDescription());
 
-        ImageView backdrop = (ImageView) findViewById(R.id.backdrop);
+        ImageView backdrop = (ImageView) findViewById(R.id.animal_detail_backdrop);
         Picasso.with(this)
                 .load(animal.getImageUrl())
                 .placeholder(R.drawable.error_missing_photo)

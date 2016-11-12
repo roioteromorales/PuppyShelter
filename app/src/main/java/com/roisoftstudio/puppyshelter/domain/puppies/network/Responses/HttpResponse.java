@@ -1,4 +1,4 @@
-package com.roisoftstudio.puppyshelter.domain.puppies.retrofit.Responses;
+package com.roisoftstudio.puppyshelter.domain.puppies.network.Responses;
 
 public class HttpResponse {
     private String message;

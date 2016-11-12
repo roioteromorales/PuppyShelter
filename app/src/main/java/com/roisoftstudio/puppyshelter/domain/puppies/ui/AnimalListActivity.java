@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.roisoftstudio.puppyshelter.R;
 import com.roisoftstudio.puppyshelter.domain.puppies.PuppyShelterApplication;
 import com.roisoftstudio.puppyshelter.domain.puppies.model.Animal;
-import com.roisoftstudio.puppyshelter.domain.puppies.retrofit.AnimalService;
+import com.roisoftstudio.puppyshelter.domain.puppies.network.AnimalService;
 
 import java.util.ArrayList;
 import java.util.List;
