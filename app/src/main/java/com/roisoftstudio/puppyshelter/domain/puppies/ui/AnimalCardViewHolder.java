@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.roisoftstudio.puppyshelter.R;
 import com.roisoftstudio.puppyshelter.domain.puppies.model.Animal;
@@ -22,16 +21,9 @@ public class AnimalCardViewHolder extends RecyclerView.ViewHolder {
         this.view = view;
         title = (TextView) view.findViewById(R.id.title);
         puppyPhoto = (ImageView) view.findViewById(R.id.puppy_photo);
-
-        setOnClickListener();
-    }
-
-    private void setOnClickListener() {
-        view.setOnClickListener(new View.OnClickListener() {
+        this.view.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                Toast.makeText(view.getContext(), "selected " + title.getText(), Toast.LENGTH_SHORT).show();
-
-                AnimalDetailActivity.open(view.getContext(), animal);
+                AnimalDetailActivity.open(AnimalCardViewHolder.this.view.getContext(), animal);
             }
         });
     }

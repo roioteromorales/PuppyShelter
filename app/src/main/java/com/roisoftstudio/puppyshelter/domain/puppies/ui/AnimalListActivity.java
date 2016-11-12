@@ -32,19 +32,36 @@ public class AnimalListActivity extends AppCompatActivity {
     AnimalService animalService;
 
     private RecyclerView mRecyclerView;
-
     private CardsAdapter adapter;
     private SwipeRefreshLayout swipeContainer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animal_list);
-        initializeAddFabButton();
         initializeDagger();
         initializeRecyclerView();
         initializeSwipeRefreshLayout();
+        initializeAddFabButton();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshList();
+    }
+
+    private void initializeDagger() {
+        PuppyShelterApplication app = (PuppyShelterApplication) getApplication();
+        app.getMainComponent().inject(this);
+    }
+
+    private void initializeRecyclerView() {
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        adapter = new CardsAdapter(new ArrayList<Animal>());
+        mRecyclerView.setAdapter(adapter);
     }
 
     private void initializeSwipeRefreshLayout() {
@@ -59,15 +76,7 @@ public class AnimalListActivity extends AppCompatActivity {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        refreshList();
-    }
-
     private void initializeAddFabButton() {
         final FloatingActionButton addAnimalButton =  (FloatingActionButton)findViewById(R.id.fab_add_button);
         final Animation rotateAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
@@ -80,36 +89,21 @@ public class AnimalListActivity extends AppCompatActivity {
         });
     }
 
-    private void initializeRecyclerView() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        adapter = new CardsAdapter(new ArrayList<Animal>());
-        mRecyclerView.setAdapter(adapter);
-    }
-
-    private void initializeDagger() {
-        PuppyShelterApplication app = (PuppyShelterApplication) getApplication();
-        app.getMainComponent().inject(this);
-    }
-
     private void refreshList() {
         animalService.getAllAnimals().enqueue(new Callback<List<Animal>>() {
             @Override
             public void onResponse(Call<List<Animal>> call, Response<List<Animal>> response) {
                 if (response.body() != null) {
-                    adapter.setPuppies(response.body());
+                    adapter.setAnimals(response.body());
                     adapter.notifyDataSetChanged();
                 }
                 swipeContainer.setRefreshing(false);
-
             }
 
             @Override
             public void onFailure(Call<List<Animal>> call, Throwable t) {
                 Toast.makeText(AnimalListActivity.this, "Please check internet connection", Toast.LENGTH_SHORT).show();
                 swipeContainer.setRefreshing(false);
-
             }
         });
     }

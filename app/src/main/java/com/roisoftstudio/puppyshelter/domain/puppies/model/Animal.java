@@ -1,6 +1,5 @@
 package com.roisoftstudio.puppyshelter.domain.puppies.model;
 
-
 import java.io.Serializable;
 
 public class Animal implements Serializable{
@@ -21,16 +20,8 @@ public class Animal implements Serializable{
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getImageUrl() {
         return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public String getDescription() {

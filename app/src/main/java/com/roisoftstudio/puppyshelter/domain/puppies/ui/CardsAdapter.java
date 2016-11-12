@@ -39,7 +39,7 @@ public class CardsAdapter extends RecyclerView.Adapter<AnimalCardViewHolder> {
         return puppies.size();
     }
 
-    public void setPuppies(List<Animal> puppies){
+    public void setAnimals(List<Animal> puppies){
         this.puppies = puppies;
     }
 

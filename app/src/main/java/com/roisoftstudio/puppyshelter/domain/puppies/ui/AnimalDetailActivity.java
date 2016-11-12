@@ -28,7 +28,11 @@ public class AnimalDetailActivity extends AppCompatActivity {
 
         initializeFloatingActionButton();
 
-        Animal animal = getPuppy();
+        initializeUIElements();
+    }
+
+    private void initializeUIElements() {
+        Animal animal = getAnimalFromIntent();
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         collapsingToolbar.setTitle(animal.getName());
 
@@ -53,9 +57,8 @@ public class AnimalDetailActivity extends AppCompatActivity {
         });
     }
 
-    private Animal getPuppy() {
-        Intent intent = getIntent();
-        return (Animal) intent.getSerializableExtra(PUPPY_KEY);
+    private Animal getAnimalFromIntent() {
+        return (Animal) getIntent().getSerializableExtra(PUPPY_KEY);
     }
 
     public static void open(Context context, Animal animal) {
