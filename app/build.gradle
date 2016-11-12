@@ -38,6 +38,7 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'commons-httpclient:commons-httpclient:3.1'
 
     testCompile 'junit:junit:4.12'
     apt 'com.google.dagger:dagger-compiler:2.7'

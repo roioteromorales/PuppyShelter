@@ -1,6 +1,7 @@
 package com.roisoftstudio.puppyshelter.domain.puppies.retrofit;
 
 import com.roisoftstudio.puppyshelter.domain.puppies.model.Animal;
+import com.roisoftstudio.puppyshelter.domain.puppies.retrofit.Responses.HttpResponse;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ public interface AnimalService {
     @GET("animals")
     Call<List<Animal>> getAllAnimals();
 
-    @POST("animals/create")
-    Call<Void> save(@Body Animal animal);
+    @POST("animals/add")
+    Call<HttpResponse> save(@Body Animal animal);
 }
