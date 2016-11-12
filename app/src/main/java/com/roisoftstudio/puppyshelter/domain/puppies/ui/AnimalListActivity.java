@@ -3,6 +3,7 @@ package com.roisoftstudio.puppyshelter.domain.puppies.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +34,8 @@ public class AnimalListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
 
     private CardsAdapter adapter;
+    private SwipeRefreshLayout swipeContainer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,22 @@ public class AnimalListActivity extends AppCompatActivity {
         initializeAddFabButton();
         initializeDagger();
         initializeRecyclerView();
+        initializeSwipeRefreshLayout();
+    }
+
+    private void initializeSwipeRefreshLayout() {
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshList();
+            }
+        });
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
     }
 
     @Override
@@ -82,11 +101,15 @@ public class AnimalListActivity extends AppCompatActivity {
                     adapter.setPuppies(response.body());
                     adapter.notifyDataSetChanged();
                 }
+                swipeContainer.setRefreshing(false);
+
             }
 
             @Override
             public void onFailure(Call<List<Animal>> call, Throwable t) {
                 Toast.makeText(AnimalListActivity.this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+                swipeContainer.setRefreshing(false);
+
             }
         });
     }
