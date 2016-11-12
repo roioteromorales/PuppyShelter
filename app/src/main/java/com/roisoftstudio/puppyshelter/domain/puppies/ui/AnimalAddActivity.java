@@ -2,6 +2,7 @@ package com.roisoftstudio.puppyshelter.domain.puppies.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,8 @@ import com.roisoftstudio.puppyshelter.domain.puppies.PuppyShelterApplication;
 import com.roisoftstudio.puppyshelter.domain.puppies.model.Animal;
 import com.roisoftstudio.puppyshelter.domain.puppies.retrofit.AnimalService;
 import com.roisoftstudio.puppyshelter.domain.puppies.retrofit.Responses.HttpResponse;
+
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -62,13 +65,18 @@ public class AnimalAddActivity extends AppCompatActivity {
                 Animal newAnimal = anAnimal()
                         .withName(name)
                         .withDescription(description)
-                        .withImageUrl("http://siliconcali.com/wp-content/uploads/2012/02/android-puppy-dog_sc-wave.png").createAnimal();
+                        .withImageUrl(getRandomImageUrl()).createAnimal();
                 animalService.save(newAnimal).enqueue(new AddAnimalCallback(view));
                 hideKeyboard(view);
             }
 
+            @NonNull
+            private String getRandomImageUrl() {
+                return "https://unsplash.it/640/480?image=" + new Random().nextInt(1000);
+            }
+
             private void hideKeyboard(View view) {
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         });

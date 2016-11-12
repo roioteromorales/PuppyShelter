@@ -66,7 +66,6 @@ public class AnimalListActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         adapter = new CardsAdapter(new ArrayList<Animal>());
-        adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
     }
 
