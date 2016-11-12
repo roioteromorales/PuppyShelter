@@ -23,6 +23,10 @@
             android:name=".domain.puppies.ui.AnimalDetailActivity"
             android:label="@string/title_activity_puppy_detail"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".domain.puppies.ui.AnimalAddActivity"
+            android:label="@string/title_activity_add_animal"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

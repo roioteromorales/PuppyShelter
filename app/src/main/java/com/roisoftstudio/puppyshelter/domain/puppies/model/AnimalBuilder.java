@@ -20,11 +20,11 @@ public class AnimalBuilder {
         return this;
     }
 
-    public static AnimalBuilder aPuppy(){
+    public static AnimalBuilder anAnimal(){
         return new AnimalBuilder();
     }
 
-    public Animal createPuppy() {
+    public Animal createAnimal() {
         return new Animal(name, imageUrl, description);
     }
 }
