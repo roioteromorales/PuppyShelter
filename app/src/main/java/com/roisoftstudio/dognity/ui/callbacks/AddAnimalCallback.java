@@ -6,6 +6,8 @@ import android.view.View;
 
 import com.roisoftstudio.dognity.network.Responses.HttpResponse;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,7 +23,16 @@ public class AddAnimalCallback implements Callback<HttpResponse> {
 
     @Override
     public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
-        String message = response.body().getStatus() + ":" + response.body().getMessage();
+        String message = "";
+        if (response.isSuccessful()) {
+            message = response.body().getStatus() + ":" + response.body().getMessage();
+        } else {
+            try {
+                message = response.errorBody().string();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         Snackbar.make(view, message, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
