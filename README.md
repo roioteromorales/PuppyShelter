@@ -1,2 +1,2 @@
-# PuppyShelter
+# Dognity (Android)
 Android Project
